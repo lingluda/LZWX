@@ -1,0 +1,19 @@
+<!--表格-->
+<nz-table #nzTable [nzLoading]="loading" [nzBordered]=true [nzSize]="'small'" [nzDataSource]="initdata" [nzPageSize]="10">
+  <thead nz-thead>
+  <tr>
+    <th nz-th><span>标题</span></th>
+    <th nz-th><span>时间</span></th>
+    <th nz-th><span>内容</span></th>
+    <th nz-th><span>Action</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+    <td nz-td>{{data.title}}</td>
+    <td nz-td>{{data.content}}</td>
+    <td nz-td>{{data.id}}</td>
+    <td nz-td>{{data.password}}</td>
+  </tr>
+  </tbody>
+</nz-table>

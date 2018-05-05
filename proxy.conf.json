@@ -1,0 +1,10 @@
+{
+  "oss": {
+    "target": "http://localhost:5050/",
+    "secure":false
+  },
+    "**": {
+        "target": "http://localhost:8098/",
+        "secure":false
+    }
+}

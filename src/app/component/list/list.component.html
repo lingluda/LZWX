@@ -1,0 +1,155 @@
+<!--修改弹出层-->
+<nz-modal [nzVisible]="editIsVisible" [nzTitle]="'修改商品'" [nzContent]="modalContent1" (nzOnCancel)="editCancel($event)" (nzOnOk)="editOk($event)">
+  <ng-template #modalContent1>
+    <form nz-form [nzLayout]="'inline'" [formGroup]="editform">
+      <div nz-form-item>
+        <div nz-form-label>主键：</div>
+        <div nz-form-control>
+          <nz-input [nzDisabled]="true" formControlName="id" [ngModel] ="zroeinfo?.id"></nz-input>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-label>姓名：</div>
+        <div nz-form-control>
+          <nz-input formControlName="name" [ngModel] ="zroeinfo?.name"></nz-input>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-label>密码：</div>
+        <div nz-form-control>
+          <nz-input formControlName="password" [ngModel] = "zroeinfo?.password"></nz-input>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-label>法克：</div>
+        <div nz-form-control>
+          <nz-select style="width: 148px" formControlName="fuck" [ngModel] = "zroeinfo?.fuck" nzAllowClear>
+            <nz-option
+              *ngFor="let option of options"
+              [nzLabel]="option.label"
+              [nzValue]="option.value"
+              [nzDisabled]="option.disabled">
+            </nz-option>
+          </nz-select>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>
+<!--添加弹出层-->
+<nz-modal [nzStyle]="style" [nzVisible]="addIsVisible" [nzTitle]="'添加商品'" [nzContent]="modalContent2" (nzOnCancel)="addCancel($event)" (nzOnOk)="addOk($event)">
+  <ng-template #modalContent2>
+    <form nz-form [nzLayout]="'inline'" [formGroup]="addform">
+      <div nz-form-item>
+        <div nz-form-label>姓名：</div>
+        <div nz-form-control>
+          <nz-input formControlName="name"></nz-input>
+        </div>
+        <div nz-form-explain *ngIf="addform.get('name').dirty && addform.get('name').errors">Please input your username!</div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-label>密码：</div>
+        <div nz-form-control>
+          <nz-input formControlName="password"></nz-input>
+        </div>
+      </div>
+      <div nz-form-item>
+        <div nz-form-label>法克：</div>
+        <div nz-form-control>
+          <nz-select style="width: 148px" formControlName="fuck" [ngModel] = "zroeinfo?.fuck" nzAllowClear>
+            <nz-option
+              *ngFor="let option of options"
+              [nzLabel]="option.label"
+              [nzValue]="option.value"
+              [nzDisabled]="option.disabled">
+            </nz-option>
+          </nz-select>
+        </div>
+      </div>
+    <!--  插入图片-->
+      <div nz-form-item>
+        <div class="clearfix">
+          <nz-upload
+            nzAction="oss/store/machining"
+            nzListType="picture-card"
+            [(nzFileList)]="fileList"
+            [nzShowButton]="fileList.length < 2"
+            [nzPreview]="handlePreview">
+            <i class="anticon anticon-plus"></i>
+            <div class="ant-upload-text">Upload</div>
+          </nz-upload>
+          <nz-modal [nzVisible]="previewVisible" [nzContent]="modalContent" [nzFooter]="null" (nzOnCancel)="previewVisible=false">
+            <ng-template #modalContent>
+              <img [src]="previewImage" [ngStyle]="{ 'width': '100%' }" />
+            </ng-template>
+          </nz-modal>
+        </div>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>
+<!--面包屑-->
+<nz-breadcrumb style="margin-bottom: 15px">
+  <nz-breadcrumb-item>
+    <a href="/#/product">首页</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a href="/#/v1">Application Center</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a href="/#/list">Application List</a>
+  </nz-breadcrumb-item>
+  <nz-breadcrumb-item>
+    <a href="/#/login">Application Center</a>
+  </nz-breadcrumb-item>
+</nz-breadcrumb>
+<!--头部搜索框-->
+<form nz-form [nzLayout]="'inline'" [formGroup]="searchform" style="margin-bottom: 15px">
+  <div nz-form-item >
+    <div nz-form-label>姓名：</div>
+    <div nz-form-control>
+      <nz-input formControlName="name" [nzSize] ="'default'"></nz-input>
+    </div>
+  </div>
+  <div nz-form-item>
+    <div nz-form-label>法克：</div>
+    <div nz-form-control>
+      <nz-select style="width: 148px" formControlName="fuck" [ngModel] = "zroeinfo?.fuck" nzAllowClear>
+        <nz-option
+          *ngFor="let option of options"
+          [nzLabel]="option.label"
+          [nzValue]="option.value"
+          [nzDisabled]="option.disabled">
+        </nz-option>
+      </nz-select>
+    </div>
+  </div>
+  <button nz-button [nzType]="'default'" (click)="search()">搜索</button>
+  <button nz-button [nzType]="'dashed'" (click)="clear()">清除</button>
+  <button nz-button [nzType]="'primary'" (click)="showAddModal()">添加</button>
+</form>
+<!--表格-->
+<nz-table #nzTable [nzLoading]="loading" [nzBordered]=true [nzSize]="'small'" [nzDataSource]="initdata" [nzPageSize]="10">
+  <thead nz-thead>
+  <tr>
+    <th nz-th><span>主键</span></th>
+    <th nz-th><span>名字</span></th>
+    <th nz-th><span>密码</span></th>
+    <th nz-th><span>？？</span></th>
+    <th nz-th><span>Action</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+    <td nz-td>{{data.id}}</td>
+    <td nz-td>{{data.name}}</td>
+    <td nz-td>{{data.password}}</td>
+    <td nz-td *ngIf="data.fuck == 1">JACK</td>
+    <td nz-td *ngIf="data.fuck == 2">LUCY</td>
+    <td nz-td>
+      <button nz-button [nzType]="'primary'" [nzSize]="'small'" (click)="_showModalEdit(data)">编辑</button>
+      <button nz-button [nzType]="'danger'" [nzSize]="'small'" (click)="_del(data.id)">删除</button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

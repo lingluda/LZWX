@@ -1,0 +1,16 @@
+<div nz-row>
+  <div nz-col [nzSpan] ="3">
+    <app-sidebar></app-sidebar>
+  </div>
+  <div  nz-col [nzSpan] ="21" >
+    <div nz-row>
+      <div>
+        <app-navbar></app-navbar>
+      </div>
+      <div style="padding: 16px;">
+        <router-outlet></router-outlet>
+      </div>
+
+    </div>
+  </div>
+</div>

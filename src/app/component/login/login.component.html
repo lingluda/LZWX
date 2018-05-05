@@ -1,0 +1,23 @@
+<form nz-form [nzLayout]="'inline'" [formGroup]="validateForm" (ngSubmit)="_submitForm()">
+  <div nz-form-item>
+    <div nz-form-control>
+      <nz-input formControlName="username" [nzPlaceHolder]="'Username'" [nzSize]="'large'">
+        <ng-template #prefix>
+          <i class="anticon anticon-user"></i>
+        </ng-template>
+      </nz-input>
+      <div nz-form-explain *ngIf="validateForm.controls.username.dirty&&validateForm.controls.username.hasError('required')">Please input your username!</div>
+    </div>
+  </div>
+  <div nz-form-item>
+    <div nz-form-control>
+      <nz-input formControlName="password" [nzType]="'password'" [nzPlaceHolder]="'Password'" [nzSize]="'large'">
+        <ng-template #prefix>
+          <i class="anticon anticon-lock"></i>
+        </ng-template>
+      </nz-input>
+      <div nz-form-explain *ngIf="validateForm.controls.password.dirty&&validateForm.controls.password.hasError('required')">Please input your Password!</div>
+    </div>
+  </div>
+  <button nz-button [nzType]="'primary'" [nzSize]="'large'" [disabled]="!validateForm.valid">Log in</button>
+</form>
