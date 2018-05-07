@@ -1,0 +1,31 @@
+<!--头部搜索框-->
+<form nz-form [nzLayout]="'inline'" [formGroup]="searchform" style="margin-bottom: 15px">
+  <div nz-form-item >
+    <div nz-form-label>姓名：</div>
+    <div nz-form-control>
+      <nz-input formControlName="name" [nzSize] ="'default'"></nz-input>
+    </div>
+  </div>
+  <button nz-button [nzType]="'default'" (click)="search()">搜索</button>
+  <button nz-button [nzType]="'dashed'" (click)="clear()">清除</button>
+  <button nz-button [nzType]="'primary'" (click)="add()">添加</button>
+</form>
+<!--表单-->
+<nz-table #nzTable [nzBordered]=true [nzDataSource]="initdata" [nzPageSize]="10">
+  <thead nz-thead>
+  <tr>
+    <th nz-th><span>Name</span></th>
+
+    <th nz-th><span>Action</span></th>
+  </tr>
+  </thead>
+  <tbody nz-tbody>
+  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
+    <td nz-td>{{data.name}}</td>
+    <td nz-td>
+      <button nz-button [nzType]="'primary'" [nzSize]="'small'">编辑</button>
+      <button nz-button [nzType]="'danger'" [nzSize]="'small'" (click)="del(data.id)">删除</button>
+    </td>
+  </tr>
+  </tbody>
+</nz-table>

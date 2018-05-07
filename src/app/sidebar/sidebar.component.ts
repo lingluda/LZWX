@@ -19,15 +19,15 @@ export class SidebarComponent implements OnInit {
       // },
       {
         class: 'anticon anticon-calendar',
-        title: '老师',
+        title: '数据字典',
         second: [
           {
-          path: '/list',
-          menu: '列表页面'
+          path: '/techdept',
+          menu: '教师部门'
           },
           {
             path: '/product',
-            menu: '列表页面'
+            menu: '教师职称'
           }
         ]
       },
