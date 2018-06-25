@@ -1,119 +1,27 @@
-<button nz-button [nzType]="'primary'" (click)="showModalTop()">
-  <span>添加</span>
-</button>
-<nz-modal [nzStyle]="style" [nzVisible]="isVisibleTop" [nzContent]="modalContent1" [nzTitle]="'添加商品'" (nzOnCancel)="handleCancelTop($event)" (nzOnOk)="handleOkTop($event)">
-  <ng-template #modalContent1>
-      <form nz-form [formGroup]="validateForm" [nzLayout]="'vertical'">
-          <nz-input-group [nzSize]="'small'">
-              <div nz-col>
-                <span>心魔</span>
-              </div>
-              <div nz-col>
-                <input formControlName="id" nz-input>
-              </div>
+<!--表单-->
+<nz-table #nzTable [nzBordered]=true [nzDataSource]="initdata"
+>
+  <thead nz-thead>
+  <tr>
 
-                <div nz-col >
-                  <span>心魔</span>
-                </div>
-                <div nz-col >
-                  <input formControlName="amount" nz-input>
-                </div>
-               
-              </nz-input-group>
-              
-              <div nz-col >
-                  <span>心魔</span>
-                </div>
-              <nz-select formControlName="amountagreement" [nzPlaceHolder]="'choose option'" nzAllowClear>
-                  <nz-option
-                    *ngFor="let option of options"
-                    [nzLabel]="option.label"
-                    [nzValue]="option"
-                    [nzDisabled]="option.disabled">
-                  </nz-option>
-              </nz-select>
-        </form>
-  </ng-template>
-</nz-modal>
-
-<nz-table
-  #nzTable
-  [nzShowTitle]=true
-  [nzShowFooter]=true
-  [nzDataSource]="_dataSet"
-  [nzPageSize]="10"
-  [nzBordered]=true
-  [nzIsPagination]=true
-  [nzScroll]="true?{ y: 440 }:null"
-  [nzSize]="'small'"
-   nzShowSizeChanger
-
-   (nzDataChange)="_displayDataChange($event)" (nzPageIndexChange)="_refreshStatus()" (nzPageSizeChange)="_refreshStatus()"
-   >
-  <span nz-table-title>Here is Title</span>
-  <ng-template #nzFixedHeader [ngIf]="_header&&!_fixHeader">
-    <thead nz-thead>
-      <tr>
-          <!-- style="width:6px" min-width:"12px" text-align:"left" -->
-          <th nz-th ng-star-inserted [nzWidth]="'0.1px'">
-              <label nz-checkbox [(ngModel)]="_allChecked" [nzIndeterminate]="_indeterminate" (ngModelChange)="_checkAll($event)">
-              </label>
-            </th>
-        <th nz-th>
-          <span>Name</span>
-           <nz-dropdown [nzTrigger]="'click'" [nzClickHide]="false">
-            <i class="anticon anticon-smile-o ant-table-filter-icon" nz-dropdown></i>
-            <div nz-dropdown-custom class="custom-filter-dropdown">
-              <nz-input [nzPlaceHolder]="'Search name'" [(ngModel)]="searchValue"></nz-input>
-              <button nz-button [nzType]="'primary'" (click)="search()" [nzShape]="'circle'"> <i class="anticon anticon-search"></i></button>
-            </div>
-          </nz-dropdown>
-        </th>
-        <th nz-th><span>年龄</span>
-           <nz-dropdown [nzTrigger]="'click'">
-            <i class="anticon anticon-filter" nz-dropdown></i>
-            <ul nz-menu>
-              <li nz-menu-item *ngFor="let filter of filterAddressArray">
-                <label nz-checkbox [(ngModel)]="filter.value">
-                  <span>{{filter.name}}</span>
-                </label>
-              </li>
-            </ul>
-            <div nz-table-filter>
-              <span nz-table-filter-confirm (click)="search()">OK</span>
-              <span nz-table-filter-clear (click)="reset(filterAddressArray)">Reset</span>
-            </div>
-          </nz-dropdown>
-        </th>
-        <th nz-th><span>Address</span></th>
-        <th nz-th ><span>Action</span></th>
-
-      </tr>
-    </thead>
-  </ng-template>
+    <th nz-th><span>院系</span></th>
+    <th nz-th><span>院系</span></th>
+    <th nz-th><span>创建时间</span></th>
+    <th nz-th><span>更新时间</span></th>
+    <th nz-th><span>操作</span></th>
+  </tr>
+  </thead>
   <tbody nz-tbody>
-    <tr nz-tbody-tr *ngFor="let data of nzTable.data">
-        <td nz-td ng-star-inserted >
-            <label nz-checkbox [(ngModel)]="data.checked" (ngModelChange)="_refreshStatus($event)">
-            </label>
-          </td>
-      <td nz-td>{{data.id}}</td>
-      <td nz-td>{{data.amount}}</td>
-      <td nz-td>{{data.amountagreement}}</td>
+  <tr nz-tbody-tr *ngFor="let data of nzTable.data">
 
-
-
-      <td nz-td>
-          <nz-button-group [nzSize]="'small'">
-              <button nz-button>编辑</button>
-
-            </nz-button-group>
-            <nz-button-group [nzSize]="'small'">
-
-                <button nz-button>删除</button>
-              </nz-button-group>
-      </td>
-    </tr>
+    <td nz-td>{{data.name}}</td>
+    <td nz-td>{{data.base.name}}</td>
+    <td nz-td>{{data.createtime}}</td>
+    <td nz-td>{{data.modifiedtime}}</td>
+    <td nz-td>
+      <button nz-button [nzType]="'primary'" [nzSize]="'small'" >编辑</button>
+      <button nz-button [nzType]="'danger'" [nzSize]="'small'" >删除</button>
+    </td>
+  </tr>
   </tbody>
-  <span nz-table-footer>Here is footer</span>
 </nz-table>

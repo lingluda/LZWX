@@ -16,11 +16,11 @@ export class AuthInterceptor implements HttpInterceptor {
 
       return next.handle(req).do(event => {
         if (event instanceof HttpResponse) {
-          this.router.navigate(['list']);
+          this.router.navigate(['techdept']);
 
         }
       });
-    } else if (localStorage.getItem('header') === null) {
+    } if (localStorage.getItem('header') === null) {
       this.router.navigate(['login']);
     }  else {
 

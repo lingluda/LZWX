@@ -18,11 +18,7 @@ export class ProductService {
     return this.http.post<List>(url, body, {observe: 'response'});
   }
   toLogin(data) {
-    this.http.post<Log>('login', {data}, {observe: 'response'}).subscribe(resp => {
-      localStorage.setItem('header', resp.body.data);
-      return resp.body.data;
-    });
-    this.router.navigate(['list']);
+    this.http.post<Log>('login', {data}, {observe: 'response'});
   }
   toLogout() {
     localStorage.removeItem("header");
@@ -32,22 +28,27 @@ export class ProductService {
   }
 }
 interface Log {
-  code: number;
+  code: string;
   msg: string;
   data: string;
 }
 interface Info {
-  code: number;
+  code: string;
   msg: string;
   data: Array<string>;
 }
 interface List {
-  code: number;
+  code: string;
   msg: string;
   data: {
-    pageIndex: number;
-    pageSize: number;
-    rows: Array<string>;
-    total: number;
+    content:Array<string>;
+    totalElements:number;
+    totalPages:number;
+    last:boolean;
+    number:number;
+    size:number;
+    sort:Array<string>;
+    numberOfElements:number;
+    first:boolean;
   };
 }

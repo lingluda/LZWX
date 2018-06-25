@@ -21,19 +21,20 @@ import {BaseHttpInterceptorService} from './shared/BaseHttpInterceptorService.se
 import {httpInterceptorProviders} from './index';
 import { NotelistComponent } from './component/notelist/notelist.component';
 import { TechdeptComponent } from './component/techdept/techdept.component';
+import { AoComponent } from './ao/ao.component';
 
-const routeConfig: Routes = [{
-  path: '',
+const routeConfig: Routes = [
+
+  {path: '',
   component: V1Component,
   children: [
+    { path: '', redirectTo: 'techdept', pathMatch: 'full'},
     {path: 'product', component: ProductComponent},
     {path: 'list', component: ListComponent},
     {path: 'notelist', component: NotelistComponent},
     {path: 'techdept', component: TechdeptComponent},
-
-  ]
-},
-  { path: '', redirectTo: 'login', pathMatch: 'full'},
+  ]},
+  {path: 'login/oa', component: AoComponent},
   { path: 'login', component: LoginComponent},
   { path: '**', component: BaseformComponent}
 ];
@@ -48,7 +49,8 @@ const routeConfig: Routes = [{
     ListComponent,
     LoginComponent,
     NotelistComponent,
-    TechdeptComponent
+    TechdeptComponent,
+    AoComponent
   ],
   providers: [ ProductService, {provide: LocationStrategy, useClass: HashLocationStrategy},
     //{ provide: HTTP_INTERCEPTORS, useClass: BaseHttpInterceptorService, multi: true },

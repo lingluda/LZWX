@@ -1,5 +1,5 @@
 <!--修改弹出层-->
-<nz-modal [nzVisible]="editIsVisible" [nzTitle]="'修改商品'" [nzContent]="modalContent1" (nzOnCancel)="editCancel($event)" (nzOnOk)="editOk($event)">
+<nz-modal [nzVisible]="editIsVisible" [nzTitle]="'修改商品'" [nzContent]="modalContent1" (nzOnCancel)="editCancel()" (nzOnOk)="editOk()">
   <ng-template #modalContent1>
     <form nz-form [nzLayout]="'inline'" [formGroup]="editform">
       <div nz-form-item>
@@ -37,7 +37,7 @@
   </ng-template>
 </nz-modal>
 <!--添加弹出层-->
-<nz-modal [nzStyle]="style" [nzVisible]="addIsVisible" [nzTitle]="'添加商品'" [nzContent]="modalContent2" (nzOnCancel)="addCancel($event)" (nzOnOk)="addOk($event)">
+<nz-modal [nzStyle]="style" [nzVisible]="addIsVisible" [nzTitle]="'添加商品'" [nzContent]="modalContent2" (nzOnCancel)="addCancel()" (nzOnOk)="addOk()">
   <ng-template #modalContent2>
     <form nz-form [nzLayout]="'inline'" [formGroup]="addform">
       <div nz-form-item>
@@ -129,7 +129,7 @@
   <button nz-button [nzType]="'primary'" (click)="showAddModal()">添加</button>
 </form>
 <!--表格-->
-<nz-table #nzTable [nzLoading]="loading" [nzBordered]=true [nzSize]="'small'" [nzDataSource]="initdata" [nzPageSize]="10">
+<nz-table #nzTable  [nzBordered]=true [nzSize]="'small'" [nzDataSource]="initdata" [nzPageSize]="10">
   <thead nz-thead>
   <tr>
     <th nz-th><span>主键</span></th>

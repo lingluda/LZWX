@@ -9,9 +9,11 @@ import {ProductService} from '../../shared/product.service';
 })
 export class NotelistComponent implements OnInit {
   initdata = [];
+  loading = true;
   _initDate() {
+
     this.ps.httpClientPostList("/note/list ", {data: {}}).subscribe(resp => {
-      this.initdata = resp.body.data.rows;
+      this.initdata = resp.body.data.content;
     });
   }
   constructor(private ps: ProductService, private fb: FormBuilder) { }

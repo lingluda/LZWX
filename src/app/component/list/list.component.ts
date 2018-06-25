@@ -28,8 +28,7 @@ export class ListComponent implements OnInit {
     console.log("初始值："+ this.zroeinfo.fuck);
     this.editIsVisible = true;
   }
-  editCancel = (e) => {
-    console.log();
+  editCancel () {
     this.editIsVisible = false;
   }
   editOk = () => {
@@ -65,7 +64,7 @@ export class ListComponent implements OnInit {
     console.log(this.searchform.value);
     const data = this.searchform.value;
     this.ps.httpClientPostList("zz/list", {data}).subscribe(resp => {
-      this.initdata = resp.body.data.rows;
+      this.initdata = resp.body.data.content;
     });
   }
   clear() {
@@ -76,7 +75,7 @@ export class ListComponent implements OnInit {
     this.addIsVisible = true;
   }
 // 添加门店
-  addOk = (e) => {
+  addOk () {
     for (const i in this.addform.controls) {
       this.addform.controls[ i ].markAsDirty();
       this.addform.controls[ i ].updateValueAndValidity();
@@ -89,19 +88,14 @@ export class ListComponent implements OnInit {
     this._initDate();
     this.addIsVisible = false;
   }
-  _submitForm() {
-    for (const i in this.addform.controls) {
-      this.addform.controls[ i ].markAsDirty();
-    }
-  }
-  addCancel = (e) => {
-    console.log(e);
+
+  addCancel () {
     this.addIsVisible = false;
   }
 // 初始化
   _initDate() {
     this.ps.httpClientPostList("/zz/list ", {data: {}}).subscribe(resp => {
-      this.initdata = resp.body.data.rows;
+      this.initdata = resp.body.data.content;
       console.log("123123123:",this.initdata);
     });
   }
@@ -113,12 +107,6 @@ export class ListComponent implements OnInit {
   constructor(private ps: ProductService, private fb: FormBuilder, private msg: NzMessageService) { }
 
   ngOnInit() {
-      this.options = [
-        { value: '1', label: 'Jack' },
-        { value: '2', label: 'Lucy' },
-        { value: 'disabled', label: 'Disabled', disabled: true }
-      ];
-      this.fuck = this.options[ 0 ].value;
 
     this._initDate();
     this.searchform = this.fb.group({
